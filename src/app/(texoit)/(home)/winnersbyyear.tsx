@@ -20,7 +20,7 @@ export default function ListWinnersByYear() {
   }
 
   useEffect(() => {
-    async function loadUsers() {
+    async function load() {
       try {
         setIsLoading(true)
 
@@ -47,7 +47,7 @@ export default function ListWinnersByYear() {
       }
     }
 
-    loadUsers()
+    load()
   }, [year])
 
   return (

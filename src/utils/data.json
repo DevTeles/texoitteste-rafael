@@ -1,0 +1,55 @@
+{
+	"content": [
+		{
+			"id": 2,
+			"year": 1980,
+			"title": "Cruising",
+			"studios": [
+				"Lorimar Productions",
+				"United Artists"
+			],
+			"producers": [
+				"Jerry Weintraub"
+			],
+			"winner": true
+		},
+		{
+			"id": 3,
+			"year": 1980,
+			"title": "The Formula",
+			"studios": [
+				"MGM",
+				"United Artists"
+			],
+			"producers": [
+				"Steve Shagan"
+			],
+			"winner": false
+		}
+	],
+	"pageable": {
+		"sort": {
+			"unsorted": true,
+			"sorted": false,
+			"empty": true
+		},
+		"offset": 0,
+		"pageSize": 2,
+		"pageNumber": 0,
+		"paged": true,
+		"unpaged": false
+	},
+	"totalPages": 82,
+	"totalElements": 164,
+	"last": false,
+	"size": 2,
+	"number": 0,
+	"sort": {
+		"unsorted": true,
+		"sorted": false,
+		"empty": true
+	},
+	"first": true,
+	"numberOfElements": 2,
+	"empty": false
+}

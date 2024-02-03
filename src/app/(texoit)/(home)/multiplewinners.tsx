@@ -11,7 +11,7 @@ export default function MultipleWinners() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    async function loadUsers() {
+    async function load() {
       try {
         setIsLoading(true)
 
@@ -35,7 +35,7 @@ export default function MultipleWinners() {
       }
     }
 
-    loadUsers()
+    load()
   }, [])
 
   return (
