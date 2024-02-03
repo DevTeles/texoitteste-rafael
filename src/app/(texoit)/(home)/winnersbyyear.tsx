@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import api from '../../../services/api'
 import * as Input from '../../../components/Input'
 import { Search } from 'lucide-react'
+import { ChangeEventParams } from '@/models'
 
 interface PropsYear {
   id: string
@@ -15,7 +16,7 @@ export default function ListWinnersByYear() {
   const [winnersYear, setWinnersYear] = useState<PropsYear[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
-  function handleChange(e: ChangeEvent) {
+  function handleChange(e: ChangeEventParams) {
     setYear(e.target.value)
   }
 
