@@ -35,7 +35,7 @@ O projeto foi desenvolvido usando as seguintes tecnologias:
   pnpm test:watch
 ```
 
-## Final result
+## Print das telas
 ![Dash](./public/dash.png)
 
 ![Logo do Projeto](./public/list.png)
@@ -44,6 +44,11 @@ O projeto foi desenvolvido usando as seguintes tecnologias:
 
 ![Logo do Projeto](./public/menu-mobile.png)
 
+# Deploy
+
+Deploy feito na vercel.
+
+<a href="https://texoitteste-rafael-git-master-rafaels-projects-d36ead32.vercel.app/">Site</a>
 
 <br />
 Developed by **Rafael Teles Vital**
