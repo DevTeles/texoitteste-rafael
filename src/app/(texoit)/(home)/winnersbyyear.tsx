@@ -1,14 +1,8 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '../../../services/api'
 import * as Input from '../../../components/Input'
 import { Search } from 'lucide-react'
-import { ChangeEventParams } from '@/models'
-
-interface PropsYear {
-  id: string
-  year: number
-  title: string
-}
+import { ChangeEventParams, PropsYear } from '@/models'
 
 export default function ListWinnersByYear() {
   const [year, setYear] = useState(0)
@@ -80,11 +74,15 @@ export default function ListWinnersByYear() {
             </tr>
           </thead>
           <tbody className="sticky divide-y divide-gray-200 bg-white dark:bg-zinc-500">
-            {isLoading && (
-              <div className="fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-md bg-white bg-opacity-80 p-4 shadow-md">
-                <div className="h-8 w-8 animate-spin rounded-full border-t-4 border-blue-500"></div>
-              </div>
-            )}
+            <tr>
+              <td colSpan={3}>
+                {isLoading && (
+                  <div className="fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-md bg-white bg-opacity-80 p-4 shadow-md">
+                    <div className="h-8 w-8 animate-spin rounded-full border-t-4 border-blue-500"></div>
+                  </div>
+                )}
+              </td>
+            </tr>
             {winnersYear.length > 0 &&
               winnersYear.map((winner, index) => (
                 <tr

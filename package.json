@@ -27,8 +27,7 @@
     "react-dom": "^18",
     "tailwind-merge": "^2.1.0",
     "tailwind-variants": "^0.1.19",
-    "ts-node": "^10.9.2",
-    "zod": "^3.22.4"
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",

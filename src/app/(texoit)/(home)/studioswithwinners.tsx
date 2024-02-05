@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../../../services/api'
-
-interface PropsStudiosWinners {
-  name: string
-  winCount: number
-}
-
-interface DataProps {
-  studios: PropsStudiosWinners[]
-}
+import { Top3Winners } from '@/utils'
+import { DataStudioProps, PropsStudiosWinners } from '@/models'
 
 export default function StudiosWithWinners() {
   const [studiosWinners, setStudiosWinners] = useState<PropsStudiosWinners[]>(
@@ -26,16 +19,14 @@ export default function StudiosWithWinners() {
             projection: 'studios-with-win-count',
           },
         })
-        const data: DataProps = response.data
+        const data: DataStudioProps = response.data
 
         if (!data) {
           console.log('Error: ', data)
           return
         }
 
-        setStudiosWinners(
-          data.studios.sort((a, b) => b.winCount - a.winCount).slice(0, 3),
-        )
+        setStudiosWinners(Top3Winners(data))
         setIsLoading(false)
       } catch (e) {
         setIsLoading(false)
@@ -63,10 +54,15 @@ export default function StudiosWithWinners() {
           </thead>
           <tbody className="sticky divide-y divide-gray-200 bg-white dark:bg-zinc-500">
             {isLoading && (
-              <div className="fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-md bg-white bg-opacity-80 p-4 shadow-md">
-                <div className="h-8 w-8 animate-spin rounded-full border-t-4 border-blue-500"></div>
-              </div>
+              <tr>
+                <td colSpan={2}>
+                  <div className="fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-md bg-white bg-opacity-80 p-4 shadow-md">
+                    <div className="h-8 w-8 animate-spin rounded-full border-t-4 border-blue-500"></div>
+                  </div>
+                </td>
+              </tr>
             )}
+
             {studiosWinners.length > 0 &&
               studiosWinners.map((studio, index) => (
                 <tr

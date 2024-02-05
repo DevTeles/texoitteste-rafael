@@ -45,3 +45,35 @@ export interface JsonResponse {
   numberOfElements: number
   empty: boolean
 }
+
+export interface PropsStudiosWinners {
+  name: string
+  winCount: number
+}
+
+export interface DataStudioProps {
+  studios: PropsStudiosWinners[]
+}
+
+export interface PropsWinners {
+  year: number
+  winnerCount: number
+}
+
+interface PropsProducer {
+  producer: string
+  interval: number
+  previousWin: number
+  followingWin: number
+}
+
+export interface DataProps {
+  min: PropsProducer[]
+  max: PropsProducer[]
+}
+
+export interface PropsYear {
+  id: string
+  year: number
+  title: string
+}

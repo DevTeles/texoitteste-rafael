@@ -1,10 +1,10 @@
 'use client'
 
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '../../../services/api'
 import { Button } from '@/components/Button'
 import { ChangeEventParams, JsonResponse } from '@/models'
-import ChangeFieldWinner from '@/utils'
+import { ChangeFieldWinner } from '@/utils'
 
 export default function Page() {
   const [year, setYear] = useState(undefined)
@@ -133,7 +133,7 @@ export default function Page() {
               ))}
           </tbody>
         </table>
-        <div className="m-2 flex items-center justify-center">
+        <div className="m-2 grid items-center justify-center lg:flex">
           <div>
             <Button variant="outline" onClick={() => setCurrentPage(0)}>
               Primeira
