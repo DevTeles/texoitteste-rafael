@@ -9,5 +9,10 @@ export function ChangeFieldWinner(data: JsonResponse) {
 }
 
 export function Top3Winners(data: any) {
-  return data.studios.sort((a, b) => b.winCount - a.winCount).slice(0, 3)
+  return data.studios
+    .sort(
+      (a: { winCount: number }, b: { winCount: number }) =>
+        b.winCount - a.winCount,
+    )
+    .slice(0, 3)
 }
