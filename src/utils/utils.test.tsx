@@ -7,8 +7,8 @@ describe('Verificação de Vencedores', () => {
     const resultado = ChangeFieldWinner(data)
 
     // Verifica se o resultado é esperado para cada winner do content
-    expect(resultado.content[0].winner).toEqual('Sim')
-    expect(resultado.content[1].winner).toEqual('Não')
+    expect(resultado.content[0].winner).toEqual('Yes')
+    expect(resultado.content[1].winner).toEqual('No')
   })
 
   it('function Top3Winners', () => {
@@ -39,5 +39,9 @@ describe('Verificação de Vencedores', () => {
 
     const data = Top3Winners(mockData)
     expect(data).toHaveLength(3)
+  })
+
+  it('Somando números', () => {
+    expect(1 + 1).toBe(2)
   })
 })

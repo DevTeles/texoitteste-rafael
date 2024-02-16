@@ -1,10 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import MultipleWinners from './multiplewinners'
-import api from '@/services/api'
+import { getMultipleWinners } from '@/services/api'
 
 // Mockando a chamada à API
 jest.mock('../../../services/api')
-const mockedApiGet = api.get as jest.MockedFunction<typeof api.get>
+const mockedApiGet = getMultipleWinners as jest.MockedFunction<
+  typeof getMultipleWinners
+>
 
 describe('MultipleWinners component', () => {
   beforeEach(() => {
@@ -21,7 +23,7 @@ describe('MultipleWinners component', () => {
         { year: 2015, winnerCount: 2 },
       ],
     }
-    mockedApiGet.mockResolvedValueOnce({ data: mockData })
+    mockedApiGet.mockResolvedValueOnce(mockData)
 
     render(<MultipleWinners />)
 

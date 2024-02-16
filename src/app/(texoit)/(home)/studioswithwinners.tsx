@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import api from '../../../services/api'
+import { getTop3Studios } from '../../../services/api'
 import { Top3Winners } from '@/utils'
-import { DataStudioProps, PropsStudiosWinners } from '@/models'
+import { PropsStudiosWinners } from '@/models'
 
 export default function StudiosWithWinners() {
   const [studiosWinners, setStudiosWinners] = useState<PropsStudiosWinners[]>(
@@ -14,15 +14,10 @@ export default function StudiosWithWinners() {
       try {
         setIsLoading(true)
 
-        const response = await api.get('backend-java/api/movies', {
-          params: {
-            projection: 'studios-with-win-count',
-          },
-        })
-        const data: DataStudioProps = response.data
+        const data = await getTop3Studios()
 
         if (!data) {
-          console.log('Error: ', data)
+          console.log('Dados: ', data)
           return
         }
 

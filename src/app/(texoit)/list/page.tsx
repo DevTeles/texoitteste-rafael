@@ -1,10 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import api from '../../../services/api'
+import { getListMovies } from '../../../services/api'
 import { Button } from '@/components/Button'
 import { ChangeEventParams, JsonResponse } from '@/models'
-import { ChangeFieldWinner } from '@/utils'
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'lucide-react'
 
 export default function Page() {
   const [year, setYear] = useState(undefined)
@@ -22,15 +27,14 @@ export default function Page() {
   }
 
   function handlePrevious() {
-    const changePage = currentPage === 0 ? 0 : currentPage - 1
+    const changePage = Math.max(currentPage - 1, 0)
     setCurrentPage(changePage)
   }
 
   function handleNext() {
-    const changePage =
-      currentPage === winnersYear.totalPages - 1
-        ? winnersYear.totalPages - 1
-        : currentPage + 1
+    const changePage = winnersYear.last
+      ? winnersYear.totalPages - 1
+      : currentPage + 1
     setCurrentPage(changePage)
   }
 
@@ -39,18 +43,10 @@ export default function Page() {
       try {
         setIsLoading(true)
 
-        const response = await api.get('backend-java/api/movies', {
-          params: {
-            page: currentPage,
-            size: 10,
-            year,
-            winner: optionWinner,
-          },
-        })
-        const data = ChangeFieldWinner(response.data)
+        const data = await getListMovies(currentPage, year, optionWinner)
 
         if (!data) {
-          console.log('Error: ', data)
+          console.log('Dados: ', data)
           return
         }
 
@@ -98,14 +94,16 @@ export default function Page() {
                     className="font-light"
                     onChange={(e: ChangeEventParams) => {
                       setOptionWinner(
-                        e.target.value === 'Todos' ? undefined : e.target.value,
+                        e.target.value === 'Yes/No'
+                          ? undefined
+                          : e.target.value,
                       )
                       setCurrentPage(0)
                     }}
                   >
-                    <option>Todos</option>
-                    <option value={1}>Sim</option>
-                    <option value={0}>Não</option>
+                    <option>Yes/No</option>
+                    <option value={1}>Yes</option>
+                    <option value={0}>No</option>
                   </select>
                 </div>
               </th>
@@ -133,47 +131,49 @@ export default function Page() {
               ))}
           </tbody>
         </table>
+
         <div className="m-2 grid items-center justify-center lg:flex">
-          <div>
-            <Button variant="outline" onClick={() => setCurrentPage(0)}>
-              Primeira
-            </Button>
-            <Button variant="outline" onClick={handlePrevious}>
-              {'<'}
-            </Button>
-            {winnersYear.totalPages >= 5 ? (
-              <>
-                <Button variant="outline" onClick={() => setCurrentPage(0)}>
-                  1
-                </Button>
-                <Button variant="outline" onClick={() => setCurrentPage(1)}>
-                  2
-                </Button>
-                <Button variant="outline" onClick={() => setCurrentPage(2)}>
-                  3
-                </Button>
-                <Button variant="outline" onClick={() => setCurrentPage(3)}>
-                  4
-                </Button>
-                <Button variant="outline" onClick={() => setCurrentPage(4)}>
-                  5
-                </Button>
-              </>
-            ) : (
-              <Button variant="outline">{currentPage + 1}</Button>
-            )}
-            <Button variant="outline" onClick={handleNext}>
-              {'>'}
+          <div className="flex items-center justify-center">
+            <Button
+              variant="ghost"
+              disabled={currentPage === 0}
+              onClick={() => setCurrentPage(0)}
+            >
+              <ChevronsLeft size={18} />
             </Button>
             <Button
-              variant="outline"
+              variant="ghost"
+              disabled={currentPage === 0}
+              onClick={handlePrevious}
+            >
+              <ChevronLeft size={18} />
+            </Button>
+
+            {Array.from({ length: winnersYear.totalPages }, (_, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                disabled={index === currentPage}
+                onClick={() => setCurrentPage(index)}
+              >
+                {index + 1}
+              </Button>
+            ))}
+
+            <Button
+              variant="ghost"
+              disabled={currentPage === winnersYear.totalPages - 1}
+              onClick={handleNext}
+            >
+              <ChevronRight size={18} />
+            </Button>
+            <Button
+              variant="ghost"
+              disabled={currentPage === winnersYear.totalPages - 1}
               onClick={() => setCurrentPage(winnersYear.totalPages - 1)}
             >
-              Última
+              <ChevronsRight size={18} />
             </Button>
-            <span className="m-2 text-sm font-semibold dark:text-zinc-100">{`Página ${
-              currentPage + 1
-            } / ${winnersYear.totalPages}`}</span>
           </div>
         </div>
       </div>

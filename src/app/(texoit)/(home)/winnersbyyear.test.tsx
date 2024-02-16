@@ -1,11 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import ListWinnersByYear from './winnersbyyear'
-import api from '@/services/api'
+import { getWinnersByYear } from '@/services/api'
 
 // Mockando a chamada à API
 jest.mock('../../../services/api')
-const mockedApiGet = api.get as jest.MockedFunction<typeof api.get>
+const mockedApiGet = getWinnersByYear as jest.MockedFunction<
+  typeof getWinnersByYear
+>
 
 describe('ListWinnersByYear', () => {
   beforeEach(() => {
@@ -39,7 +41,7 @@ describe('ListWinnersByYear', () => {
       },
     ]
 
-    mockedApiGet.mockResolvedValueOnce({ data: mockData })
+    mockedApiGet.mockResolvedValueOnce(mockData)
 
     render(<ListWinnersByYear />)
 

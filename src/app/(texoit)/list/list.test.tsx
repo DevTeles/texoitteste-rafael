@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import Page from './page'
-import api from '@/services/api'
+import { getListMovies } from '@/services/api'
 
 // Mockando a chamada à API
 jest.mock('../../../services/api')
-const mockedApiGet = api.get as jest.MockedFunction<typeof api.get>
+const mockedApiGet = getListMovies as jest.MockedFunction<typeof getListMovies>
 
 describe('Page', () => {
   beforeEach(() => {
@@ -62,7 +62,7 @@ describe('Page', () => {
       empty: false,
     }
 
-    mockedApiGet.mockResolvedValueOnce({ data: mockData })
+    mockedApiGet.mockResolvedValueOnce(mockData)
     render(<Page />)
 
     // Verifique se o componente é renderizado corretamente

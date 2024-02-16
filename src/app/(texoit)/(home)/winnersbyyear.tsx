@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import api from '../../../services/api'
+import { getWinnersByYear } from '../../../services/api'
 import * as Input from '../../../components/Input'
 import { Search } from 'lucide-react'
 import { ChangeEventParams, PropsYear } from '@/models'
@@ -19,18 +19,10 @@ export default function ListWinnersByYear() {
       try {
         setIsLoading(true)
 
-        const response = await api.get('backend-java/api/movies', {
-          params: {
-            winner: true,
-            year,
-          },
-        })
-        const data = response.data
-
-        console.log('DATA YEAR: ', data)
+        const data = await getWinnersByYear(year)
 
         if (!data) {
-          console.log('Error: ', data)
+          console.log('Dados: ', data)
           return
         }
 

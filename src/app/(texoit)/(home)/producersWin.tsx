@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import api from '../../../services/api'
-import { DataProps } from '@/models'
+import { getMaxMinIntervalProducers } from '../../../services/api'
+import { MinMaxIntervalProducersProps } from '@/models'
 
 export default function ProducersWin() {
-  const [producersWin, setProducersWin] = useState<DataProps>({
-    min: [],
-    max: [],
-  } as DataProps)
+  const [producersWin, setProducersWin] =
+    useState<MinMaxIntervalProducersProps>({
+      min: [],
+      max: [],
+    } as MinMaxIntervalProducersProps)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -14,15 +15,10 @@ export default function ProducersWin() {
       try {
         setIsLoading(true)
 
-        const response = await api.get('backend-java/api/movies', {
-          params: {
-            projection: 'max-min-win-interval-for-producers',
-          },
-        })
-        const data: DataProps = response.data
+        const data: any = await getMaxMinIntervalProducers()
 
         if (!data) {
-          console.log('Error: ', data)
+          console.log('Dados: ', data)
           return
         }
 
@@ -48,16 +44,16 @@ export default function ProducersWin() {
           <thead className="sticky top-0">
             <tr>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                producer
+                Producer
               </th>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                interval
+                Interval
               </th>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                previousWin
+                Previous Year
               </th>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                followingWin
+                Following Year
               </th>
             </tr>
           </thead>
@@ -98,16 +94,16 @@ export default function ProducersWin() {
           <thead className="sticky top-0">
             <tr>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                producer
+                Producer
               </th>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                interval
+                Interval
               </th>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                previousWin
+                Previous Year
               </th>
               <th className="bg-zinc-100 px-6 py-3 text-left dark:bg-zinc-700">
-                followingWin
+                Following Year
               </th>
             </tr>
           </thead>

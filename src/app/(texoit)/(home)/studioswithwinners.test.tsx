@@ -1,10 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import api from '@/services/api'
+import { getTop3Studios } from '@/services/api'
 import StudiosWithWinners from './studioswithwinners'
 
 // Mockando a chamada à API
 jest.mock('../../../services/api')
-const mockedApiGet = api.get as jest.MockedFunction<typeof api.get>
+const mockedApiGet = getTop3Studios as jest.MockedFunction<
+  typeof getTop3Studios
+>
 
 describe('StudiosWithWinners component', () => {
   beforeEach(() => {
@@ -38,7 +40,7 @@ describe('StudiosWithWinners component', () => {
       ],
     }
 
-    mockedApiGet.mockResolvedValueOnce({ data: mockData })
+    mockedApiGet.mockResolvedValueOnce(mockData)
 
     render(<StudiosWithWinners />)
 

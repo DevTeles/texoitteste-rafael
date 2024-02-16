@@ -2,7 +2,7 @@ import { JsonResponse, Movie } from '@/models'
 
 export function ChangeFieldWinner(data: JsonResponse) {
   data.content.forEach((item: Movie) => {
-    item.winner = item.winner ? 'Sim' : 'Não'
+    item.winner = item.winner ? 'Yes' : 'No'
   })
 
   return data

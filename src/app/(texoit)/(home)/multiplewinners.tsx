@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import api from '../../../services/api'
+import { getMultipleWinners } from '../../../services/api'
 import { PropsWinners } from '@/models'
 
 export default function MultipleWinners() {
@@ -10,20 +10,14 @@ export default function MultipleWinners() {
     async function load() {
       try {
         setIsLoading(true)
-
-        const response = await api.get('backend-java/api/movies', {
-          params: {
-            projection: 'years-with-multiple-winners',
-          },
-        })
-        const data = response.data
+        const data: any = await getMultipleWinners()
 
         if (!data) {
-          console.log('Error: ', data)
+          console.log('Dados: ', data)
           return
         }
 
-        setWinners(response.data.years)
+        setWinners(data.years)
         setIsLoading(false)
       } catch (e) {
         setIsLoading(false)

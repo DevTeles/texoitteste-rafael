@@ -67,7 +67,7 @@ interface PropsProducer {
   followingWin: number
 }
 
-export interface DataProps {
+export interface MinMaxIntervalProducersProps {
   min: PropsProducer[]
   max: PropsProducer[]
 }

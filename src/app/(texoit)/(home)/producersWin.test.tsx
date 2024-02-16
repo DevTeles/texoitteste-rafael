@@ -1,10 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import api from '@/services/api'
+import { getMaxMinIntervalProducers } from '@/services/api'
 import ProducersWin from './producersWin'
 
 // Mockando a chamada à API
 jest.mock('../../../services/api')
-const mockedApiGet = api.get as jest.MockedFunction<typeof api.get>
+const mockedApiGet = getMaxMinIntervalProducers as jest.MockedFunction<
+  typeof getMaxMinIntervalProducers
+>
 
 describe('ProducersWin component', () => {
   beforeEach(() => {
@@ -33,7 +35,7 @@ describe('ProducersWin component', () => {
       ],
     }
 
-    mockedApiGet.mockResolvedValueOnce({ data: mockData })
+    mockedApiGet.mockResolvedValueOnce(mockData)
 
     render(<ProducersWin />)
 
@@ -44,10 +46,14 @@ describe('ProducersWin component', () => {
     ).toBeDefined()
     expect(screen.getByText('Maximum')).toBeDefined()
     expect(screen.getByText('Minimum')).toBeDefined()
+    expect(screen.getAllByText('Producer')).toBeDefined()
+    expect(screen.getAllByText('Interval')).toBeDefined()
+    expect(screen.getAllByText('Previous Year')).toBeDefined()
+    expect(screen.getAllByText('Following Year')).toBeDefined()
 
     await waitFor(() => {
-      expect(screen.getByText('Joel Silver')).toBeDefined()
-      expect(screen.getByText('Matthew Vaughn')).toBeDefined()
+      expect(screen.getAllByText('Joel Silver')).toBeDefined()
+      expect(screen.getAllByText('Matthew Vaughn')).toBeDefined()
     })
   })
 })
